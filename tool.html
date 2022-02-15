@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">	
+    <title>Narrative Tool</title>
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/timeline.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/narra.css" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script>UPLOADCARE_PUBLIC_KEY = "3f6e14a63f98b48f1e3d";</script>
+    <script src="https://ucarecdn.com/libs/widget/2.10.3/uploadcare.full.min.js" charset="utf-8"></script>
+    <script src="/lib/es6-shim.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/bib-parser.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/typeahead.bundle.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/lib/image-tools.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/timeline-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/lib/demo-narraMaps.js" type="text/javascript" charset="utf-8"></script> 
+
+	<link rel="stylesheet" href="https://cdn.knightlab.com/libs/storymapjs/latest/css/storymap.css">
+	<script type="text/javascript" src="/lib/storymap.js"></script>  
+
+
+	<style>
+	#mapdiv{
+		width: 100%;
+		height: 84%;
+		margin-top: .5%;
+		display: none;
+	}
+	</style>
+	
+	<!--FONT AWESOME-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+
+
+</head>
+<body>
+	<div class="spinner" style="position: fixed; top: 50%; left: 50%; margin-left: -40px; margin-top: -20px;">
+	  <div class="bounce1"></div>
+	  <div class="bounce2"></div>
+	  <div class="bounce3"></div>
+	</div>
+	
+	<div id="auth-div" style="display: none">
+		<form id="auth-form" class="form-signin">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<label for="inputName" class="sr-only">Username</label>
+			<input type="text" id="inputName" class="form-control" placeholder="Username" required="" autofocus="">
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+			<button id="authButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<div class="help-inline"></div>
+		</form>
+		<div id="user-pass">You can request username/password at this email address: <a href="mailto:daniele.metilli@isti.cnr.it?subject=NBVT%20login%20credentials">daniele.metilli@isti.cnr.it</a></div>
+	</div>
+  	
+    <div id="topTitle" onclick="$('.popover').hide()" >
+		<!--contenteditable="true"-->
+        <h2 class="subjectName" id="bigName"></h2><button id="buttonSaveTitle" onclick="confirmUpdateTitle();"><i class="fa fa-edit"></i></button> 
+		
+    </div>
+
+	<div id='timeline-embed'></div>
+	<div id="mapdiv"></div>
+	
+    
+	<div class="dropdown">
+    	<div id="home" class="btn btn-primary nav top-btn">HOME</div>
+		<div id="buttonPublishMap" class="btn btn-primary nav top-btn"  onclick="publishMap();">PUBLISH MAP</div>
+		<div id="userMenu" class="btn btn-primary dropdown-toggle nav top-btn" type="button" data-toggle="dropdown"></div>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<div id="narratives-menu">
+				<li id="my-narratives" class="dropdown-header">My Narratives</li>
+			</div>
+			<div id="account-menu">
+				<li class="dropdown-header">My Account</li>
+				<li class="narra-list-item"><a class="data" onclick="confirmLogout();">Logout</a></li>
+				<!--<li class="narra-list-item"><a class="data">Account Settings</a></li>-->
+			</div>
+		</ul>
+	</div>
+        
+    <div id="container" onclick="$('.popover').hide();">
+        <div id="leftNav">
+            <div class="nav" id="allButton" data-class="" onclick="hideSearch(); $('#controls .data').show();"><span>ALL</span></div>
+            <div class="nav" id="searchButton" data-class="" onclick="showSearch();"><span>SEARCH</span></div>
+            <div class="nav" id="peopleButton" data-class="person" onclick="$('#controls .data').hide(); $('.person').show()"><span>PEOPLE</span></div>
+            <div class="nav" id="organizationButton" data-class="organization" onclick="$('#controls .data').hide(); $('.organization').show()"><span>ORGS</span></div>
+            <div class="nav" id="objectButton" data-class="object" onclick="$('#controls .data').hide(); $('.object').show()"><span>OBJECTS</span></div>
+            <div class="nav" id="conceptButton" data-class="concept" onclick="$('#controls .data').hide(); $('.concept').show()"><span>CONCEPTS</span></div>
+            <div class="nav" id="placeButton" data-class="place" onclick="$('#controls .data').hide(); $('.place').show()"><span>PLACES</span></div>
+            <div class="nav" id="workButton" data-class="work" onclick="$('#controls .data').hide(); $('.work').show()"><span>WORKS</span></div>
+            <div class="nav" id="otherButton" data-class="other" onclick="$('#controls .data').hide(); $('.other').show()"><span>OTHER</span></div>
+            <div class="nav" id="plusButton" onclick="event.cancelBubble = true; if (event.stopPropagation) event.stopPropagation(); $('#plusButton').popover('show'); $('#secondChoice').show()"><span>NEW</span></div>
+        </div>
+        <div id="controls" class="back" onscroll="$('.popover').hide()">
+            <input id="searchInput" placeholder="Search" class="input-append" onkeyup="searchEntity()">
+            <div class="spinner-loader"></div>
+        </div>
+        <div id="workspace" class="back">  
+            <form class="center workspaceForm" role="form">
+				<div class="form-group">
+					<label for="inputDiv" class="entitiesLabel">EVENT TITLE</label>
+                	<input autocomplete="off" id="eventTitle" class="input-append form-control" required>
+				</div>
+				
+				<div class="form-group form-table">
+	                <div id="datePickerStart" class="dateDiv input-group">
+	                	<label for="dateInputStart" class="entitiesLabel dateLabel form-inline">START DATE</label>
+						<div>
+	                    	<input autocomplete="off" data-format="yyyy-MM-dd" type="text" class="input-append dateInput form-control" id="dateInputStart" onfocus="$(this).css('color', '#333')" ><!-- placeholder="DD-MM-YYYY">-->
+						</div>
+	                </div>
+	                <div id="datePickerEnd" class="dateDiv input-group">
+	                	<label for="dateInputEnd" class="entitiesLabel dateLabel">END DATE</label>
+						<div>
+	                    	<input autocomplete="off" data-format="yyyy-MM-dd" type="text" class="input-append dateInput form-control" id="dateInputEnd" onfocus="$(this).css('color', '#333')"><!-- placeholder="DD-MM-YYYY">-->
+						</div>
+	                </div>
+				</div>
+				
+				<div class="form-group form-table">
+	                <div id="latit" class="dateDiv input-group">
+	                	<label for="dateInputStart" class="entitiesLabel dateLabel form-inline">LATITUDE</label>
+						<div>
+	                    	<input autocomplete="off"  type="text" class="input-append dateInput form-control" id="latitud" onfocus="$(this).css('color', '#333')"><!-- placeholder="DD-MM-YYYY">-->
+						</div>
+	                </div>
+	                <div id="longit" class="dateDiv input-group">
+	                	<label for="dateInputEnd" class="entitiesLabel dateLabel">LONGITUDE</label>
+						<div>
+	                    	<input autocomplete="off"  type="text" class="input-append dateInput form-control" id="longitud" onfocus="$(this).css('color', '#333')"><!-- placeholder="DD-MM-YYYY">-->
+						</div>
+	                </div>
+				</div>
+				
+				<div class="form-group">
+					<label for="inputDiv" class="entitiesLabel">EVENT TYPOLOGY</label>
+					<select id="markerMapColor" class="input-append form-control">
+						<option id="mapmarker#a5a5a5" value="#a5a5a5" selected></option>
+						<option id="mapmarker#ffff33" value="#e6e600">Historical</option>
+						<option id="mapmarker#00e600" value="#2eb82e">Natural</option>
+						<option id="mapmarker#ff9900" value="#ff9900">Productive/Valorisation</option>
+					</select>
+				</div>
+				
+                <div id="typeDiv" class="typeDiv ui-front form-group" style="display:none">
+                	<label for="typeInput" class="entitiesLabel">EVENT TYPE</label>
+                    <input autocomplete="off" type="text" class="input-append form-control" id="typeInput" autocomplete="off" required>
+                </div>
+				
+                <label for="inputDiv" id="entitiesLabel" class="entitiesLabel">ENTITIES</label>
+                <div class="form-control form-table" id="entitiesDiv">
+                    <div id="inputDiv">
+                        <div autocomplete="off" id="inputHelp">Drop entities here!</div>
+                    </div>
+                </div>
+				
+                <div class="form-group form-table" id="descDiv">
+                	<label for="descArea" class="entitiesLabel">DESCRIPTION</label>
+                    <textarea id="descArea" class="form-control"></textarea>
+                </div>
+				
+                <div class="form-group form-table" id="notesDiv">
+                	<label for="notesArea" class="entitiesLabel">NOTES</label>
+                    <textarea id="notesArea" class="form-control"></textarea>
+                </div>
+				
+				<div class="form-group">
+					<label for="inputDiv" class="entitiesLabel">MEDIA URL</label>
+                	<input autocomplete="off" id="eventMedia" class="input-append form-control">
+				</div>
+				
+                <div class="input-group" id="digobjDiv">
+                	<label for="digobjInput" class="entitiesLabel">DIGITAL OBJECTS</label>
+                    <input autocomplete="off" type="url" class="form-control" id="digobjInput" placeholder="Insert URL of digital object">
+					<span class="input-group-btn">
+					   <button id="digObjButton" class="btn btn-default" type="button">Add</button>
+					</span>
+                </div>
+				<div id="digobjTable"></div>
+				
+				<div class="form-group">
+					<label for="inputDiv" class="entitiesLabel">Position</label>
+					<input type="radio" name="positionRadio" class="radioPositionButton" value="before" id="positionBefore"> <span class="radioButtonText">Before</span>
+					<input type="radio" name="positionRadio" class="radioPositionButton" value="after" id="positionAfter"> <span class="radioButtonText">After</span>
+					<select id="positionEvent" class="input-append form-control"></select>
+				</div>
+			
+            </form>
+        </div>
+        <div id="rightNav">
+            <div class="nav" id="saveButton" onclick="var evid = saveEvent(); if (evid !== undefined) { displayEvent(undefined, evid); resetWorkspace();}"><span>SAVE FORM</span></div>
+            <div class="nav" id="cancelButton" onclick="confirmReset();"><span>CLEAR FORM</span></div>
+            <!--<div class="nav"><label id="loadBibButton">LOAD BIB<input type="file" id="file-input" onchange="loadBibFile(event)"/></label></div>-->
+         
+			<!--<div class="nav" id="relButton" onclick="openRelations()"><span>RELATIONS</span></div> -->
+			 <div class="nav" id="visButton" onclick="confirmVisualizeMap()"><span>VISUALIZE MAP</span></div>
+ 		   	<div class="nav" id="visButton" onclick="confirmVisualizeTimeline()"><span>VISUALIZE TIMELINE</span></div>
+			<div class="nav" id="exportButton"><span>EXPORT</span></div>
+
+			
+<!--  		   	<div class="nav" id="tripButton" onclick="triplify()">
+				<div id="floatingCirclesG" style="display: none">
+					<div class="f_circleG" id="frotateG_01"></div>
+					<div class="f_circleG" id="frotateG_02"></div>
+					<div class="f_circleG" id="frotateG_03"></div>
+					<div class="f_circleG" id="frotateG_04"></div>
+					<div class="f_circleG" id="frotateG_05"></div>
+					<div class="f_circleG" id="frotateG_06"></div>
+					<div class="f_circleG" id="frotateG_07"></div>
+					<div class="f_circleG" id="frotateG_08"></div>
+				</div>
+				<span>TRIPLIFY</span>
+			</div> -->
+        </div>
+    </div>
+    <div id="timeline" onclick="$('.popover').hide();"></div>
+    <div id="overlay" onclick="$('.popover').hide();"></div>
+    <div id="relHelpContainer" class="centered" onclick="$('.popover').hide();">
+        <h2 class="relHelp"><span class="arrow">⬆</span> Drag events into the boxes above <span class="arrow">⬆</span></h2>
+	</div>
+    <div id="bottomTimeline" onclick="$('.popover').hide();"></div>
+	
+		
+	
+	
+</body>
+</html>

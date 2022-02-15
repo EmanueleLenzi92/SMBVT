@@ -1,0 +1,435 @@
+
+/* MODIFICHE AL CSS DEL TEMPLATE
+
+--> MENU SCELTA OPERA, GRAFICO, FORM PER RICERCA DISTRIBUZIONE
+------------------------------------------------------------------ */
+
+div.section {
+	margin-bottom: 40px;
+	padding-bottom: 0;
+}
+
+div.fpadding {
+	padding-bottom: 163px;
+}
+
+.content p {
+	padding-bottom: 0;
+}
+
+.logo {
+	font-size: 44px;
+}
+
+
+/*scelta opera*/
+
+
+div.menusceltaopera {
+	width: 68%;
+	margin: 3% auto 10% auto;
+}
+
+div.menusceltaopera input#titolo {
+	width: 40%;
+	border: 1px solid silver;
+	padding-left: 1%;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-right: 1%;
+	height: auto;
+	margin-bottom: 12px;
+	height: 30px;
+	margin-left: 2%;
+}
+
+div.autocomplete {
+   height: 200px;
+   overflow: scroll;
+   position: absolute;
+   background-color: white;
+   z-index: 1;
+   padding: 0px;
+   margin:0px;
+   border:2px solid #E7543D;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+}
+
+div.autocomplete ul{
+	list-style-type: none !important;
+	
+}
+
+div.autocomplete ul li{
+ 	list-style-type: none !important;
+}
+
+div.autocomplete a { 
+	color: black;
+}
+	
+div.autocomplete ul li.selected { 
+	background-color: #E7543D;
+	color: white;
+}
+
+/*div.autocomplete {
+  position:absolute;
+  width:250px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+  display: block !important;
+  }
+
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+
+div.autocomplete ul li.selected { background-color: #ffb;}
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+  cursor:pointer;
+}*/
+
+/*input { default di input nel template, per sapere cosa cambiare...
+	font-size: 16px; 
+	color: #000; 
+	height: 45px; 
+	padding: 0 18px; 
+	width: 100%; 
+	border: 0; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+	font-family: 'Roboto Slab', serif; 
+	font-weight: 300; }*/
+
+label[for=titolo] { 
+	font-size: 20px; 
+	line-height: 25px; 
+	font-weight: 300; 
+	margin-bottom: 12px;
+}
+
+div.graficogenerato:empty {
+	display: none;
+}
+
+div.graficogenerato:empty > div#risultato{
+	display: none;
+}
+
+div.graficogenerato:not(:empty) {
+	height: 600px;
+}
+
+div#container {
+	width: 80%;
+	height: 600px;
+	margin-left: auto;
+	margin-right:auto;
+	margin-top: 3%;
+}
+
+div#esportazione {
+	display: block;
+	width: 30%;
+}
+
+/* form ricercaDistribuzione*/
+
+div#ricercaDistribuzione {
+	width: 38%;
+	max-width: 320px;
+	min-width: 270px;
+	padding: 2%;
+	padding-right: 4%;
+	padding-left: 4%;
+	margin: auto;
+	border: 2px solid #E7543D;
+	margin-bottom: 20px;
+}
+
+#ricercaDistribuzione label {
+	line-height: 0px;; 
+	position: static; 
+	left: 0px; 
+	width: 40%;
+}
+
+#ricercaDistribuzione select { 
+	width: 52%; 
+	float:right;
+}
+	 
+#ricercaDistribuzione div { 
+margin-bottom: 8px;	
+vertical-align: middle;
+}
+
+#ricercaDistribuzione > *:last-child { border-radius: 4px;}
+#ricercaDistribuzione > input.button { 
+	margin-left: 30%; 
+	margin-rigth: 30%; 
+	padding-left: 8px; 
+	padding-right: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	height: auto;
+	width: 40%;
+}
+
+/* Pulsanti */
+
+a.button {
+	font-weight: 400;
+	padding: 0 5%;
+	line-height: 300%;
+	/*height: 100%*/
+}
+
+/*variazioni tabella dei dettagli*/
+
+h5.intestazione_tabella {
+	padding-left: 1%;
+	padding-bottom: 1%;
+}
+
+h5.intestazione_tabella strong {
+	color: #E7543D;
+}
+
+h5.fragment-label {
+	font-size: 14pt;
+}
+
+div.table-container {
+	width: 100%;
+	font-size: 10pt;
+	margin: 2% auto 2% auto;
+}
+
+table.result-table {
+	table-layout: fixed;
+	border-collapse: collapse;
+	border: none;
+	border-spacing: 0;
+	color: rgb(26, 26, 26);
+	width: 100%;
+}
+
+table.result-table thead th {
+	background-color: #F4F4F4;
+	font-size: 16pt;
+	font-weight: normal;
+	text-align: left;
+	padding: 1%;
+	min-width: 7%;
+	padding-bottom: 3%;
+	border-left: solid 1px white;
+	border-right: solid 1px white;
+}
+
+table.result-table thead tr {
+	border: 3px solid transparent;
+	border-bottom: none;
+}
+
+table.result-table tbody tr.clickable {
+	cursor: pointer;
+}
+
+table.result-table tbody tr {
+	background-color: #F4F4F4;
+	border: 3px solid transparent;
+	border-collapse: collapse;
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+table.result-table tbody td {
+	font-weight: 300 !important;
+	font-size: 11pt !important;
+	text-align: left;
+	padding: 1% !important;
+	border-left: solid 1px white;
+	border-right: solid 1px white;
+	vertical-align: top;
+	color: black;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+table.result-table tbody tr.fragment-row td {
+	padding-top: 0 !important;
+	padding-bottom: 1% !important;
+}
+
+table.result-table thead th {
+	width: auto;
+}
+
+table.result-table thead th.width-s {
+	width: 7%;
+}
+
+table.result-table thead th.width-m {
+	width: 9%;
+}
+
+table.result-table thead th.width-l {
+	width: 16%;
+}
+
+table.result-table thead th.width-xl {
+	width: 18%;
+}
+
+table.result-table tbody tr.fragment-row {
+	border-top: solid 1px white;
+}
+
+table.result-table tbody tr.alternate {
+	background-color: rgba(231, 84, 61, 0.3);
+}
+
+div.fragment-container {
+	width: 100%;
+	height: 100%;
+}
+
+div.danteCell {
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	display: block;
+	padding-top: 1%;
+}
+
+div.sourceCell {
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	padding-top: 1%;
+	display: block;
+	/*border-left: 1px solid white;*/
+}
+
+.onlyCell {
+	margin: 0 auto;
+	width: 50% !important;
+}
+
+/*tabelle non rifatte*/
+
+
+table.righealterne tr.alterna td{
+	background-color: rgba(233,84,60,0.61);
+	}
+
+table.righealterne td{
+	border-left: 2px solid white;
+	border-right: 2px solid white;
+	padding: 1%;
+	}
+	
+/* bandiere */	
+	
+.flag {
+	width: 30px;
+	cursor: pointer;
+}	
+
+/*?*/
+div.bigger {
+	max-width: 1600px;
+}
+
+.smaller > *{
+	font-size: 0.9rem;
+}
+
+.smaller > blockquote > h5{
+	font-size: 0.9rem;
+}
+
+
+/*footer*/	
+.fpadding_less {
+	padding-bottom: 50px;
+}
+
+.footer{ 
+	height: 93px; 
+	margin-top: -233px;
+	 }
+	 
+.footer.index{ 
+	height: 213px; 
+	margin-top: -353px;
+	 }	 
+
+/* banner */
+
+.banner {
+	width: auto;
+	display: table;
+	border: 2px solid #E7543D;
+	text-align: center;
+	cursor: pointer;"
+}
+
+.banner-link {
+	font-size: 18pt;
+	display: table-cell;
+	vertical-align: middle;
+	line-height: 200%;
+}
+
+/*------------------------------------------------------------------
+[ RESPONSIVE MODIFICHE ]
+-------------------------------------------------------------------*/
+
+
+@media only screen and (max-width: 1030px) {
+    
+    /*responsive aggiunto da paola*/
+    .img_index {display: none;}
+    div.menusceltaopera h5 {display: none;}
+    div#myList-menu.lm-wrapper {display: none !important;}
+    div.menusceltaopera {padding-bottom: 10%;}
+    div.menusceltaopera input#titolo {display: block; width: 70% !important;}
+}
+
+@media only screen and (max-width: 860px) {
+
+    /*responsive aggiunto da paola*/
+    .img_index {display: none;}
+    div.menusceltaopera h5 {display: none;}
+    div#myList-menu.lm-wrapper {display: none !important;}
+    div.menusceltaopera {padding-bottom: 10%;}
+    div.menusceltaopera input#titolo {display: block; width: 70% !important;}
+}
+
+@media only screen and (max-width: 590px) {
+
+    /*responsive aggiunto da paola*/
+    .img_index {display: none;}
+    div.menusceltaopera h5 {display: none;}
+    div#myList-menu.lm-wrapper {display: none !important;}
+    div.menusceltaopera {padding-bottom: 10%;}
+    div.menusceltaopera input#titolo {display: block; width: 70% !important;}
+}
+
+/* Utili quando si creano screenshot da stampare */
+ span {text-decoration: none !important} 
+ table {color: black !important} 

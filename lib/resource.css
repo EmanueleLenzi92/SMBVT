@@ -1,0 +1,14 @@
+
+table {
+	margin: 0 auto; border: solid 1px #aaa;
+}
+
+tr {
+	border: solid 1px #aaa;
+}
+
+td {
+	border: solid 1px #aaa;
+	text-align: left;
+	padding: 5px;
+}

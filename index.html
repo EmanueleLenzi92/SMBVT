@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Narrative Tool</title>
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/narraintro.css" />
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <script src="/lib/jquery-3.2.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/typeahead.bundle.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="/lib/demo-intro.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body style="overflow: hidden;">
+	<div class="dropdown">
+    	<div id="home" class="btn btn-primary nav top-btn">LOGOUT</div>
+		<div id="userMenu" class="btn btn-primary dropdown-toggle nav top-btn" type="button" data-toggle="dropdown"></div>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<div id="narratives-menu">
+				<li id="my-narratives" class="dropdown-header">My Narratives</li>
+			</div>
+			<div id="account-menu">
+				<li class="dropdown-header">My Account</li>
+				<li class="narra-list-item"><a class="data" onclick="confirmLogout();">Logout</a></li>
+				<!--<li class="narra-list-item"><a class="data">Account Settings</a></li>-->
+			</div>
+		</ul>
+	</div>
+	<div id="auth-div" style="display: none">
+		<form id="auth-form" class="form-signin">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<label for="inputName" class="sr-only">Username</label>
+			<input type="text" id="inputName" class="form-control" placeholder="Username" required="" autofocus="">
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+			<button id="authButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <div class="help-inline"></div>
+		</form>
+		<div id="user-pass">You can request username/password at this email address: <a href="mailto:emanuele.lenzi@isti.cnr.it?subject=NBVT%20login%20credentials">emanuele.lenzi@isti.cnr.it</a></div>
+	</div>
+	<div id="emptyDiv"></div>
+    <div id="introDiv">
+        <div id="back" onclick="document.getElementById('topDiv').style.height = '52%'; $(this).fadeToggle();">BACK</div>
+        <div onclick="document.getElementById('topDiv').style.height = '52%'; $('#back').fadeToggle();">
+            <h1 class="subjectName" id="topTitle" style="line-height: 90%">Build a Narrative</h1>
+            <i><h2 class="subjectName" style="margin-top: .3%">about...</h2></i>
+        </div>
+        <div id="topDiv">
+        <a href="tool.html?idwiki=Q1067" class="one-fifth">
+            <div class="personDiv" style="background-image: url(/images/dante.jpg); background-size: cover; background-position: center top; background-repeat: no-repeat;">
+                <span class="personName">Dante Alighieri<br></span>
+            </div>
+        </a>
+        <a href="tool.html?idwiki=Q34661" class="one-fifth">
+            <div class="personDiv" style="background-image: url(/images/klimt.jpg); background-size: cover; background-position: right top; background-repeat: no-repeat;">
+                <span class="personName">Gustav Klimt</span>
+            </div>
+        </a>
+        <a href="tool.html?idwiki=Q13133" class="one-fifth">
+            <div class="personDiv" style="background-image: url(/images/michelle.jpg); background-size: 180%; background-position: center top; background-repeat: no-repeat;">
+                <span class="personName">Michelle Obama</span>
+            </div>
+        </a>
+        <a href="tool.html?idwiki=Q204646" class="one-fifth">
+            <div class="personDiv" style="background-image: url(/images/squid.jpg); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
+                <span class="personName">Giant Squid</span>
+            </div>
+        </a>
+        <a href="tool.html?idwiki=Q23548" class="one-fifth">
+            <div class="personDiv" style="background-image: url(/images/nasa.jpg); background-size: cover; background-position: left top; background-repeat: no-repeat;">
+                <span class="personName">NASA</span>
+            </div>
+        </a>
+        <div style="margin: 0 auto; text-align: center; margin-top: 0; height: 14%">
+            <i style="height: 100%"><h2 class="subjectName" style="height: 100%; line-height: 90%">or...</h2></i>
+        </div>
+    </div>
+    <div id="otherSearch" style="display: block; margin: 0 auto; text-align: left; display: table; width: 60%; margin-top: .5%; margin-bottom: 0">
+        <h2 class="subjectName" style="align: left; font-size: 200%; border: none; vertical-align: middle; display: table-cell; padding: 0; margin: 0">Search for a different subject:&nbsp;</h2>
+        <div style="height: 100%; vertical-align: middle; display: table-cell; padding: 0; text-align: left">
+            <input id="wd-search" class="typeahead" style="width: 500px; height: 100%; padding: 0; text-align: center; font-size: 16pt" autocomplete='off'
+                onfocus="document.getElementById('topDiv').style.height = '0'; $('#back').fadeToggle();">
+            </input>
+        </div>
+    </div>
+    <div id="results"></div>
+    <div id="userDBs"><b>Existing narratives:</b></div>
+</div>
+<p style="text-align: center;">© 2017–2022 <a href="http://isti.cnr.it">ISTI-CNR</a>, released under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a> license. Images from <a href="https://commons.wikimedia.org">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA 3.0</a> license.
+	<br>Works best with recent versions of <a href="https://www.google.com/chrome/index.html">Google Chrome</a>, <a href="https://www.apple.com/lae/safari/">Apple Safari</a>, and <a href="https://www.mozilla.org/en-US/firefox/">Mozilla Firefox</a>.</p>
+</body>
+</html>
