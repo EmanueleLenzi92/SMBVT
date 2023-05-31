@@ -12,3 +12,9 @@ If you use ``SMBVT`` as support to your research consider citing:
 > Meghini C., Bartalesi V., Metilli D. _[Representing narratives in digital libraries: The narrative ontology](https://content.iospress.com/articles/semantic-web/sw200421)_. In: Semantic Web, vol. 12, no. 2, pp. 241-264, 2021.
 > Metilli D., Bartalesi V., Meghini C. _[A Wikidata-based tool for building and visualising narratives](https://link.springer.com/article/10.1007/s00799-019-00266-3)_. In: International Journal on Digital Libraries, vol. Springer, 2019.
 > Metilli D., Bartalesi V., Meghini C. _[Populating narratives using Wikidata events: an initial experiment](https://link.springer.com/chapter/10.1007/978-3-030-11226-4_13)_. In: Digital Libraries: Supporting Open Science. 15th Italian Research Conference on Digital Libraries, pp. 159 - 166. Manghi P., Candela L., Silvello G. (eds.). (Communications in Computer and Information Science, vol. 988). Pisa: Springer, 2019.
+
+# Dependencies
+In order to use ``SMBVT``, you need to install some softwar first:
+- [PostgreSQL](https://www.postgresql.org/)
+- [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/)
+- if you want install the system locally in your machine, you need a software like [XAMPP](https://www.apachefriends.org/it/index.html) that provides the apache web server and the latest versions of PHP 
