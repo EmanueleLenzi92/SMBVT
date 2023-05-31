@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">	
     <title>Narrative Tool</title>
-    <link rel="stylesheet" type="text/css" href="/lib/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/lib/timeline.css" />
-    <link rel="stylesheet" type="text/css" href="/lib/narra.css" />
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="lib/timeline.css" />
+    <link rel="stylesheet" type="text/css" href="lib/narra.css" />
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script>UPLOADCARE_PUBLIC_KEY = "3f6e14a63f98b48f1e3d";</script>
     <script src="https://ucarecdn.com/libs/widget/2.10.3/uploadcare.full.min.js" charset="utf-8"></script>
-    <script src="/lib/es6-shim.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/lib/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/lib/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/lib/bib-parser.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/lib/typeahead.bundle.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/lib/image-tools.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/lib/timeline-min.js" type="text/javascript" charset="utf-8"></script>
-<script src="/lib/demo-narraMaps.js" type="text/javascript" charset="utf-8"></script> 
+    <script src="lib/es6-shim.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/bib-parser.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/typeahead.bundle.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/image-tools.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/timeline-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/demo-narraMaps3.js" type="text/javascript" charset="utf-8"></script> 
 
 	<link rel="stylesheet" href="https://cdn.knightlab.com/libs/storymapjs/latest/css/storymap.css">
-	<script type="text/javascript" src="/lib/storymap.js"></script>  
+	<script type="text/javascript" src="lib/storymap.js"></script>  
 
 
 	<style>
@@ -31,6 +31,35 @@
 		margin-top: .5%;
 		display: none;
 	}
+	
+	#digobjTitle{text-align: left;}
+	
+	/*button delete Narraive (in menu dropdown)*/
+	.narra-list-item .deleteButton:hover{transform: scale(1.05); background-color:rgba(255, 0, 0, 1);}
+	.narra-list-item{position:relative;}
+	.narra-list-item .deleteButton{ top: 21%; text-align: center; right: 2% !important; cursor:pointer; background-color:rgba(255, 0, 0, 0.4); width: 2.3vh !important; left:auto !important}
+	.narra-list-item .data:hover {position: static !important}
+	
+	
+	/*Only for tool.html (menu dropdown under MY NARRATIVES tab) for correcting min-height topTitle*/
+	.dropdown {
+		top: -5% ;
+	}
+	
+	#eventImageInput{border:0px !important; margin-top:0px !important;}
+	
+	
+	/*for top button menu*/
+	.dropdown{top: 0px !important}
+	.top-btn{position: absolute !important}
+	.dropdown-menu-right{max-height: 65vh; overflow: auto;}
+	
+	
+	/*hide scrollbar */
+ body::-webkit-scrollbar { 
+    display: none; 
+}
+	
 	</style>
 	
 	<!--FONT AWESOME-->
@@ -44,6 +73,23 @@
 	  <div class="bounce1"></div>
 	  <div class="bounce2"></div>
 	  <div class="bounce3"></div>
+	</div>
+	
+	<div class="dropdown">
+    	<div id="home" class="btn btn-primary nav top-btn">HOME</div>
+		<div id="userName" class="btn btn-primary nav top-btn"></div>
+
+		<div id="userMenu" class="btn btn-primary dropdown-toggle nav top-btn" type="button" data-toggle="dropdown">MY NARRATIVES</div>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<div id="narratives-menu">
+				<li id="my-narratives" class="dropdown-header">My Narratives</li>
+			</div>
+			<div id="account-menu">
+				<li class="dropdown-header">My Account</li>
+				<li class="narra-list-item"><a class="data" onclick="confirmLogout();">Logout</a></li>
+				<!--<li class="narra-list-item"><a class="data">Account Settings</a></li>-->
+			</div>
+		</ul>
 	</div>
 	
 	<div id="auth-div" style="display: none">
@@ -65,25 +111,13 @@
 		
     </div>
 
-	<div id='timeline-embed'></div>
-	<div id="mapdiv"></div>
+
 	
     
-	<div class="dropdown">
-    	<div id="home" class="btn btn-primary nav top-btn">HOME</div>
-		<div id="buttonPublishMap" class="btn btn-primary nav top-btn"  onclick="publishMap();">PUBLISH MAP</div>
-		<div id="userMenu" class="btn btn-primary dropdown-toggle nav top-btn" type="button" data-toggle="dropdown"></div>
-		<ul class="dropdown-menu dropdown-menu-right">
-			<div id="narratives-menu">
-				<li id="my-narratives" class="dropdown-header">My Narratives</li>
-			</div>
-			<div id="account-menu">
-				<li class="dropdown-header">My Account</li>
-				<li class="narra-list-item"><a class="data" onclick="confirmLogout();">Logout</a></li>
-				<!--<li class="narra-list-item"><a class="data">Account Settings</a></li>-->
-			</div>
-		</ul>
-	</div>
+
+	
+	<div id='timeline-embed'></div>
+	<div id="mapdiv"></div>
         
     <div id="container" onclick="$('.popover').hide();">
         <div id="leftNav">
@@ -111,13 +145,13 @@
 				
 				<div class="form-group form-table">
 	                <div id="datePickerStart" class="dateDiv input-group">
-	                	<label for="dateInputStart" class="entitiesLabel dateLabel form-inline">START DATE</label>
+	                	<label for="dateInputStart" class="entitiesLabel dateLabel form-inline">START DATE <span style="font-size: 13px">(dd-mm-yy or yyyy)</span></label>
 						<div>
 	                    	<input autocomplete="off" data-format="yyyy-MM-dd" type="text" class="input-append dateInput form-control" id="dateInputStart" onfocus="$(this).css('color', '#333')" ><!-- placeholder="DD-MM-YYYY">-->
 						</div>
 	                </div>
 	                <div id="datePickerEnd" class="dateDiv input-group">
-	                	<label for="dateInputEnd" class="entitiesLabel dateLabel">END DATE</label>
+	                	<label for="dateInputEnd" class="entitiesLabel dateLabel">END DATE <span style="font-size: 13px">(dd-mm-yy or yyyy)</span></label>
 						<div>
 	                    	<input autocomplete="off" data-format="yyyy-MM-dd" type="text" class="input-append dateInput form-control" id="dateInputEnd" onfocus="$(this).css('color', '#333')"><!-- placeholder="DD-MM-YYYY">-->
 						</div>
@@ -126,20 +160,21 @@
 				
 				<div class="form-group form-table">
 	                <div id="latit" class="dateDiv input-group">
-	                	<label for="dateInputStart" class="entitiesLabel dateLabel form-inline">LATITUDE</label>
+	                	<label for="dateInputStart" class="entitiesLabel dateLabel form-inline">LATITUDE <span style="font-size: 13px">(e.g. 43.9930)</span></label>
 						<div>
 	                    	<input autocomplete="off"  type="text" class="input-append dateInput form-control" id="latitud" onfocus="$(this).css('color', '#333')"><!-- placeholder="DD-MM-YYYY">-->
 						</div>
 	                </div>
 	                <div id="longit" class="dateDiv input-group">
-	                	<label for="dateInputEnd" class="entitiesLabel dateLabel">LONGITUDE</label>
+	                	<label for="dateInputEnd" class="entitiesLabel dateLabel">LONGITUDE <span style="font-size: 13px">(e.g. 10.31055)</span></label>
 						<div>
 	                    	<input autocomplete="off"  type="text" class="input-append dateInput form-control" id="longitud" onfocus="$(this).css('color', '#333')"><!-- placeholder="DD-MM-YYYY">-->
 						</div>
 	                </div>
+					<button id="openPopupSearchCoordinates" onclick="openPopupMap()" class="btn btn-default" type="button" style="width: 100%;">Find coordinates from map</button>
 				</div>
 				
-				<div class="form-group">
+<!-- 				<div class="form-group">
 					<label for="inputDiv" class="entitiesLabel">EVENT TYPOLOGY</label>
 					<select id="markerMapColor" class="input-append form-control">
 						<option id="mapmarker#a5a5a5" value="#a5a5a5" selected></option>
@@ -147,11 +182,11 @@
 						<option id="mapmarker#00e600" value="#2eb82e">Natural</option>
 						<option id="mapmarker#ff9900" value="#ff9900">Productive/Valorisation</option>
 					</select>
-				</div>
+				</div> -->
 				
-                <div id="typeDiv" class="typeDiv ui-front form-group" style="display:none">
+                <div id="typeDiv" class="typeDiv ui-front form-group">
                 	<label for="typeInput" class="entitiesLabel">EVENT TYPE</label>
-                    <input autocomplete="off" type="text" class="input-append form-control" id="typeInput" autocomplete="off" required>
+                    <input autocomplete="off"  type="text" class="input-append form-control" id="typeInput" autocomplete="off" required>
                 </div>
 				
                 <label for="inputDiv" id="entitiesLabel" class="entitiesLabel">ENTITIES</label>
@@ -172,13 +207,23 @@
                 </div>
 				
 				<div class="form-group">
-					<label for="inputDiv" class="entitiesLabel">MEDIA URL</label>
-                	<input autocomplete="off" id="eventMedia" class="input-append form-control">
+					<label for="inputDiv" class="entitiesLabel">ADD MEDIA URL OR UPLOAD IMAGE FROM DISK (MAX 2MB)</label>
+                	<input autocomplete="off" id="eventMedia" class="input-append form-control" placeholder="Insert URL of media (e.g. wikipedia image or youtube video)" style="font-size:14px; text-align: left !important;">
+				
+					<button id="selectEventLocalImage" onclick="document.getElementById('eventImageInput').click()" class="btn btn-default" type="button" style="width: 100%; overflow:hidden">Select Image</button>
+					<input  style="display:none;" type="file" id="eventImageInput"  name="eventImage">					
+				
+				</div>
+				
+				<div class="form-group">
+					<label for="inputDiv" class="entitiesLabel">MEDIA URL CAPTION</label>
+                	<input autocomplete="off" id="eventMediaCaption" class="input-append form-control"  style="font-size:14px; text-align: left !important;">
 				</div>
 				
                 <div class="input-group" id="digobjDiv">
                 	<label for="digobjInput" class="entitiesLabel">DIGITAL OBJECTS</label>
                     <input autocomplete="off" type="url" class="form-control" id="digobjInput" placeholder="Insert URL of digital object">
+					<input autocomplete="off" type="url" class="form-control" id="digobjTitle" placeholder="Insert Title of digital object">
 					<span class="input-group-btn">
 					   <button id="digObjButton" class="btn btn-default" type="button">Add</button>
 					</span>
@@ -202,10 +247,10 @@
 			<!--<div class="nav" id="relButton" onclick="openRelations()"><span>RELATIONS</span></div> -->
 			 <div class="nav" id="visButton" onclick="confirmVisualizeMap()"><span>VISUALIZE MAP</span></div>
  		   	<div class="nav" id="visButton" onclick="confirmVisualizeTimeline()"><span>VISUALIZE TIMELINE</span></div>
-			<div class="nav" id="exportButton"><span>EXPORT</span></div>
+			<div class="nav" id="exportButton"><span>EXPORT IN JSON</span></div>
 
 			
-<!--  		   	<div class="nav" id="tripButton" onclick="triplify()">
+ 		   	<div class="nav buttonPublishMap" id="tripButton" onclick="publishNarration()">
 				<div id="floatingCirclesG" style="display: none">
 					<div class="f_circleG" id="frotateG_01"></div>
 					<div class="f_circleG" id="frotateG_02"></div>
@@ -216,10 +261,19 @@
 					<div class="f_circleG" id="frotateG_07"></div>
 					<div class="f_circleG" id="frotateG_08"></div>
 				</div>
-				<span>TRIPLIFY</span>
-			</div> -->
+				<span>PUBLISH STORY</span>
+			</div>
+				<a id="helpStorymap_aTag" href="Short_Guide/Short Guide to use SMBVT.pdf" target="_blank"><div class="nav" id="helpStorymap"><span>HELP</span></div></a>
         </div>
     </div>
+	
+	<div id="eventSearchDiv" style="
+    margin-top: 1.5%;
+    text-align: center;">
+        <input placeholder="filter events" id="eventSearch" type="text" style="width:50%; border-radius:25px">
+    </div>
+	
+	
     <div id="timeline" onclick="$('.popover').hide();"></div>
     <div id="overlay" onclick="$('.popover').hide();"></div>
     <div id="relHelpContainer" class="centered" onclick="$('.popover').hide();">

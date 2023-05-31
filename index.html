@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+
+    
+	<meta charset="UTF-8">
     <title>Narrative Tool</title>
     <link rel="stylesheet" type="text/css" href="/lib/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/lib/narraintro.css" />
@@ -9,14 +11,83 @@
     <script src="/lib/jquery-3.2.0.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/lib/typeahead.bundle.min.js" type="text/javascript" charset="utf-8"></script>
+	
+<script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css" />
 
-<script src="/lib/demo-intro.js" type="text/javascript" charset="utf-8"></script>
+	<!-- Add icon library -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="lib/demo-intro.js" type="text/javascript" charset="utf-8"></script>
+
+<style>
+.userDB{position: relative;}
+.userDB a {
+	text-decoration: none !important;
+    color: #222 !important;
+
+}
+
+.deleteButton{cursor:pointer; background-color:rgba(255, 0, 0, 0.4); width: 2.3vh !important;}
+.deleteButton:hover{transform: scale(1.05); background-color:rgba(255, 0, 0, 1);}
+
+
+
+.narra-list-item{position:relative;}
+.narra-list-item .deleteButton{ top: 21%; text-align: center;}
+
+
+/*for button top menu*/
+.top-btn{position: absolute !important}
+.dropdown{top: 0px !important}
+.dropdown{border: 1px solid transparent}
+.dropdown-menu-right{max-height: 65vh; overflow: auto;}
+
+
+
+/*for datatables*/
+
+#userDBs{
+    width: 94%;
+    display: block;
+    border: 1px solid gray;
+    margin-left: auto;
+    margin-right: auto;
+	height: auto;
+	position: relative;
+	margin-top:4%;
+	margin-bottom: 3%;
+	white-space: normal;
+}
+
+.userDB{z-index:1; }
+
+#introDiv{height: auto; margin-bottom:2%}
+
+.one-fifth{height:300px}
+
+.data{display: block;}
+
+#dataTable{text-align:left; width: 100% !important}
+
+.odd{background-color: white !important;}
+#dataTable_length{width: 40% !important}
+#dataTable_filter input {width: 50% !important}
+#dataTable_filter {width: 50% !important}
+
+
+#userDBs input {background-color: white}
+
+</style>
+
+
 
 </head>
-<body style="overflow: hidden;">
+<body>
 	<div class="dropdown">
     	<div id="home" class="btn btn-primary nav top-btn">LOGOUT</div>
-		<div id="userMenu" class="btn btn-primary dropdown-toggle nav top-btn" type="button" data-toggle="dropdown"></div>
+		<div id="userName" class="btn btn-primary nav top-btn"></div>
+		<div id="userMenu" class="btn btn-primary dropdown-toggle nav top-btn" type="button" data-toggle="dropdown">MY NARRATIVES</div>
 		<ul class="dropdown-menu dropdown-menu-right">
 			<div id="narratives-menu">
 				<li id="my-narratives" class="dropdown-header">My Narratives</li>
@@ -28,20 +99,22 @@
 			</div>
 		</ul>
 	</div>
-	<div id="auth-div" style="display: none">
+	<div id="auth-div" style="display: none;">
 		<form id="auth-form" class="form-signin">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<label for="inputName" class="sr-only">Username</label>
 			<input type="text" id="inputName" class="form-control" placeholder="Username" required="" autofocus="">
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-			<button id="authButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<button id="authButton" class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
+			<h2 class="form-signin-heading" style="font-size: 120% !important; margin-bottom:0px !important">or</h2></a>
+			<a href="https://tool.dlnarratives.eu/demo.html"><h2 class="form-signin-heading" style="font-size: 150% !important; color:#ed786a">Try the demo version</h2></a>
             <div class="help-inline"></div>
 		</form>
-		<div id="user-pass">You can request username/password at this email address: <a href="mailto:emanuele.lenzi@isti.cnr.it?subject=NBVT%20login%20credentials">emanuele.lenzi@isti.cnr.it</a></div>
+		<div id="user-pass">You can request username/password at this email address: <a href="mailto:emanuele.lenzi@isti.cnr.it?subject=NBVT%20login%20credentials">emanuele.lenzi@isti.cnr.it</a><br/><br/>The tool is open source at: <a href="https://github.com/EmanueleLenzi92/SMBVT">https://github.com/EmanueleLenzi92/SMBVT</a></div>
 	</div>
 	<div id="emptyDiv"></div>
-    <div id="introDiv">
+    <div id="introDiv" >
         <div id="back" onclick="document.getElementById('topDiv').style.height = '52%'; $(this).fadeToggle();">BACK</div>
         <div onclick="document.getElementById('topDiv').style.height = '52%'; $('#back').fadeToggle();">
             <h1 class="subjectName" id="topTitle" style="line-height: 90%">Build a Narrative</h1>
@@ -53,9 +126,9 @@
                 <span class="personName">Dante Alighieri<br></span>
             </div>
         </a>
-        <a href="tool.html?idwiki=Q34661" class="one-fifth">
-            <div class="personDiv" style="background-image: url(/images/klimt.jpg); background-size: cover; background-position: right top; background-repeat: no-repeat;">
-                <span class="personName">Gustav Klimt</span>
+        <a href="tool.html?idwiki=Q55423213" class="one-fifth">
+            <div class="personDiv" style="background-image: url(/images/dolomiti.jpg); background-size: cover; background-position: right top; background-repeat: no-repeat;">
+                <span class="personName">Dolomites</span>
             </div>
         </a>
         <a href="tool.html?idwiki=Q13133" class="one-fifth">
@@ -80,15 +153,15 @@
     <div id="otherSearch" style="display: block; margin: 0 auto; text-align: left; display: table; width: 60%; margin-top: .5%; margin-bottom: 0">
         <h2 class="subjectName" style="align: left; font-size: 200%; border: none; vertical-align: middle; display: table-cell; padding: 0; margin: 0">Search for a different subject:&nbsp;</h2>
         <div style="height: 100%; vertical-align: middle; display: table-cell; padding: 0; text-align: left">
-            <input id="wd-search" class="typeahead" style="width: 500px; height: 100%; padding: 0; text-align: center; font-size: 16pt" autocomplete='off'
-                onfocus="document.getElementById('topDiv').style.height = '0'; $('#back').fadeToggle();">
+            <input id="wd-search" class="typeahead" style="width: 500px; height: 100%; padding: 0; text-align: center; font-size: 16pt" autocomplete='off'>
+                <!-- onfocus="document.getElementById('topDiv').style.height = '0'; $('#back').fadeToggle();"> -->
             </input>
         </div>
     </div>
-    <div id="results"></div>
-    <div id="userDBs"><b>Existing narratives:</b></div>
+    
+    <div id="userDBs"><table id="dataTable"></table></div>
 </div>
-<p style="text-align: center;">© 2017–2022 <a href="http://isti.cnr.it">ISTI-CNR</a>, released under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a> license. Images from <a href="https://commons.wikimedia.org">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA 3.0</a> license.
+<p style="text-align: center; padding-bottom:2%; margin-top: 5%;">© 2017–2022 <a href="http://isti.cnr.it">ISTI-CNR</a>. SMBVT <a target="_blank" href="https://dlnarratives.eu/terms_of_use.html">Terms of use</a>.<br/> Images from <a href="https://commons.wikimedia.org">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA 3.0</a> license.
 	<br>Works best with recent versions of <a href="https://www.google.com/chrome/index.html">Google Chrome</a>, <a href="https://www.apple.com/lae/safari/">Apple Safari</a>, and <a href="https://www.mozilla.org/en-US/firefox/">Mozilla Firefox</a>.</p>
 </body>
 </html>
