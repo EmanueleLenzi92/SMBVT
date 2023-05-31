@@ -57,6 +57,8 @@ body {
 	background-color: rgb(240, 240, 240);
 }
 
+
+
 #workspaceForm {
 	margin: 0 auto;
 	text-align: left;
@@ -309,6 +311,10 @@ border-radius: 10px;
 	outline: 0;
 }
 
+#userName{cursor: auto !important}
+#userName:active { border-style: outset !important}
+
+
 .nav {
 	width: 100%;
 	border: solid 1px #bbb;
@@ -323,6 +329,8 @@ border-radius: 10px;
 	height: 8.7%;
 	padding: 0;
 }
+
+#helpStorymap_aTag{text-decoration:none; color:blue}
 
 #cancelButton{
 	margin-bottom: 30px;
@@ -423,10 +431,10 @@ label {
 h2 {
 	text-align: center;
 	font-size: 200%;
-	line-height: 130%;
+	line-height: 130% !important;
 	margin: 2% auto;
-	white-space: nowrap;
-	overflow: hidden;
+	/* white-space: nowrap; */
+	/* overflow: hidden; */
 	color: #bbb;
 	width: 100%;
 	display: block;
@@ -526,6 +534,15 @@ h1 {
 	user-select: none;
 }
 
+#leftNav .nav, #rightNav .nav{
+	
+	box-shadow: 2px 2px 3px lightgrey;
+	border-radius: 4px;
+
+} 
+
+#leftNav .nav:hover, #rightNav .nav:hover{opacity: 0.7}
+
 .tl-storyslider {
 	user-select: auto !important;
 }
@@ -583,7 +600,7 @@ h1 {
 
  .subjectName {
 	font-family: "Source Sans Pro";
-	font-size: 2em;
+	font-size: 1.7em;
 	line-height: 1.5em;
 	letter-spacing: 2px;
 	font-weight: 800 !important;
@@ -626,11 +643,16 @@ h1 {
 	height: 60%
 } */
 #buttonPublishMap{
-		right: 105px;
+		/*right: 105px;*/ /*Real position is calculated in javascript in publishMap()*/
 		overflow: hidden;
 		display:none;
 		background-color: rgb(46, 184, 46) !important;
 		color: white !important;
+}
+
+.buttonPublishMap{
+	background-color: rgb(46, 184, 46) !important;
+	color: white !important;
 }
 
 
@@ -1750,9 +1772,10 @@ h5 {
 }
 
 .tl-media-image {
-	cursor: -moz-zoom-in; 
+/* 	cursor: -moz-zoom-in; 
 	cursor: -webkit-zoom-in; 
-	cursor: zoom-in;
+	cursor: zoom-in; */
+	cursor: auto !important
 }
 
 .mfp-img {
@@ -1761,9 +1784,9 @@ h5 {
 	cursor: zoom-out;
 }
 
-body::-webkit-scrollbar { 
+/* body::-webkit-scrollbar { 
     display: none; 
-}
+} */
 
 .has-error .form-control, #entitiesDiv.has-error {
 	border-color: rgb(237, 120, 106) !important;
@@ -1771,7 +1794,7 @@ body::-webkit-scrollbar {
 
 .cc-window {
 	background-color: rgb(237, 120, 106) !important;
-	border: solid 3px rgb(237, 120, 106);
+	border: solid 3px rgb(237, 120, 106); 
 }
 
 .cc-compliance, .cc-message {
@@ -1792,13 +1815,43 @@ body::-webkit-scrollbar {
 .radioButtonText{color: #aaa;}
 
 /*Maps visualization*/
-h2.vco-headline{font-size: 2.0vw !important; margin-bottom: 10px !important;}
+h2.vco-headline{font-size: 2.2em !important; margin-bottom: 2.5vh !important;}
 /* .vco-slide{
 	overflow-x:visible !important;
 	overflow-y:visible !important
 } */
+.vco-storymap{
+	font-size: 14px !important;
+	-webkit-user-select: auto !important;
+	user-select: auto !important;
+	
+}
+
+.vco-storyslider{
+	-webkit-user-select: auto !important;
+	user-select: auto !important;
+}
+
+.tl-text{
+	-webkit-user-select: text !important;
+	user-select: text !important;	
+}
+
+.vco-text p {
+	font-size: 1.2em !important;
+}
+
+.vco-text h5{
+	font-size: 1.5em !important;
+	font-weight: 700;
+	margin-bottom: 0.3vh !important
+}
+
+.vco-text-content .tooltip{z-index:9 !important; max-width:120px !important}
 
 .activeMarker{color:#c34528 !important}
+
+.vco-caption{text-align:center !important}
 
 /*Map legend*/
 	.slideLegend p {font-size:0.8vw !important; line-height: 1.3rem !important; margin-top:0px !important; margin-bottom:0px !important}
@@ -1842,3 +1895,21 @@ h2.vco-headline{font-size: 2.0vw !important; margin-bottom: 10px !important;}
 	}
 	
 	.leaflet-control-zoom {display:block !important; margin-top: 2.5em !important;}
+	
+	
+	.narra-center{
+		display: table;
+		margin: auto;
+		width: 100%;
+		text-align: center;
+	
+	}
+	
+	.storymap-date{
+		display: table;
+		margin: auto;
+		width: 100%;
+		text-align: left;
+		font-style: italic;
+		font-weight: 800
+	}
