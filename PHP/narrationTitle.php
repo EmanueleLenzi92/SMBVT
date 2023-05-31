@@ -25,9 +25,13 @@ if(isset($_GET['dbusername'])){
 	//Update title in narrations table (first time is ""; so it will be title of sibject narration)
 	
 	if($title == ""){
-		$sql= "UPDATE narrations SET title='$firstTitleSubjNarration' where id= $idNarra";
+		$sql="UPDATE \"".$idNarra.$dbName."\" SET value= jsonb_set(value, '{name}', '\"$firstTitleSubjNarration\"') where id='A1'"; //update A1.info in db
+		$result = pg_query($sql) or die('Error message: ' . pg_last_error());
+		pg_free_result($result);
+		
+		$sql= "UPDATE narrations SET title='$firstTitleSubjNarration' where id= $idNarra"; //update title in narrations table
 	
-	} else {$sql= "UPDATE narrations SET title='$title' where id= $idNarra";}
+	} else {$sql= "UPDATE narrations SET title='".pg_escape_string($title)."' where id= $idNarra";}
 	
 	$result = pg_query($sql) or die('Error message: ' . pg_last_error());
 	pg_free_result($result);
@@ -44,9 +48,9 @@ if(isset($_GET['dbusername'])){
 	
 	$idNarra= $_POST['idNarra'];
 	$dbName= $_POST['dbusername'];
-	$newTitle= pg_escape_string($_POST['newtitle']);
+	$newTitle= json_encode(pg_escape_string($_POST['newtitle']));
 	
-	$sql= "UPDATE \"".$idNarra.$dbName."\" SET value= jsonb_set(value, '{name}', '\"$newTitle\"') WHERE id = 'A1'";
+	$sql= "UPDATE \"".$idNarra.$dbName."\" SET value= jsonb_set(value, '{name}', '$newTitle') WHERE id = 'A1'";
 	$result = pg_query($sql) or die('Error message: ' . pg_last_error());
 	pg_free_result($result);
 
