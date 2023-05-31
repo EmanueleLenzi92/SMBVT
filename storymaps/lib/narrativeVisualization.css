@@ -1,0 +1,82 @@
+	h1{font-size: 210% !important; width: 70% !important; white-space: normal !important; margin: 0px !important; margin-left:auto !important; margin-right: auto !important}
+	
+	#titleTable{display:table-cell; vertical-align:middle; width:100%}
+	
+	#mapdiv{
+		width: 100%;
+		height: 90%;
+	}
+	
+	#menu{
+		width: 100%;
+		min-height: 10%;
+		/*border:1px solid red;*/
+		position:relative;
+		display:table
+	}
+	
+	body{
+		margin: 0 !important;
+		padding: 0 !important;
+		background-color: white !important;
+		font-family: Verdana, sans-serif;
+		font-size: 140% !important;
+		text-align: left !important;
+	}
+	
+	
+	
+	
+.dropbtn {
+  background-color: rgb(240, 240, 240);
+
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  width: 100%;
+}
+
+.otherVisual {
+  position: absolute;
+  display: inline-block;
+  right: 0px;
+  top: 0px;
+  
+}
+
+.otherNarratives{
+  position: absolute;
+  display: inline-block;
+  left: 0px;
+  top: 0px;
+  width:15%
+}
+
+.otherVisual-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+.otherVisual-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.otherVisual-content a:hover {background-color: #ddd;}
+
+.otherVisual:hover .otherVisual-content {display: block;}
+
+.otherVisual:hover .dropbtn {background-color: #ddd;}
+
+
+/*SEARCH PAGE*/
+
+#contentSearch{width:80%;margin-left:auto;margin-right:auto;text-align:center;margin-top:2%}
+
+#selectedentities{width:50%; margin-bottom: 3%;}
