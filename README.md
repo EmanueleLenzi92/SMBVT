@@ -18,3 +18,7 @@ In order to use ``SMBVT``, you need to install some softwar first:
 - [PostgreSQL](https://www.postgresql.org/)
 - [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/)
 - if you want install the system locally in your machine, you need a software like [XAMPP](https://www.apachefriends.org/it/index.html) that provides the apache web server and the latest versions of PHP 
+
+After installing PostgreSQL, you need to create a database and import the two tables contained in the SQL folder. The config file to update with your connection data is in try/PgConn.php.
+After installing Apache Jena Fuseki, you need to create a dataset called "narratives" and the public endpoint "narratives/query"
+In the end, you can use an FTP client (as Filezilla) in order to upload all the file on your space server, or in the folder htdocs if you are using XAMPP locally in your machine 
