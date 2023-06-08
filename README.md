@@ -16,10 +16,10 @@ If you use ``SMBVT`` as support to your research consider citing:
 > Metilli D., Bartalesi V., Meghini C. _[Populating narratives using Wikidata events: an initial experiment](https://link.springer.com/chapter/10.1007/978-3-030-11226-4_13)_. In: Digital Libraries: Supporting Open Science. 15th Italian Research Conference on Digital Libraries, pp. 159 - 166. Manghi P., Candela L., Silvello G. (eds.). (Communications in Computer and Information Science, vol. 988). Pisa: Springer, 2019.
 
 # Dependencies
-In order to use ``SMBVT``, you need to install some softwar first:
+To use ``SMBVT``, the following software is needed:
 - [PostgreSQL](https://www.postgresql.org/)
 - [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/)
-- if you want install the system locally in your machine, you need a software like [XAMPP](https://www.apachefriends.org/it/index.html) that provides the apache web server and the latest versions of PHP 
+- If you want to install the system on your machine, you have to install software like XAMPP that provides the Apache web server and the latest versions of PHP 
 
 # Configuration and Installation
 After installing PostgreSQL, you need to create a database and import the two tables contained in the SQL folder. The config file to update with your connection data is in try/PgConn.php.
